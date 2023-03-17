@@ -1,0 +1,33 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-right_xx-large">
+            <div class="slds-p-left_x-large">
+      <lightning-combobox
+        label="Select an option"
+        value={selectedOption}
+        options={options}
+        onchange={handleOptionChange}>
+      </lightning-combobox>
+            </div>
+        </div>
+    <div class="slds-box slds-p-top_small" style="background-color: white; position: relative;">
+        <template if:true={showSpinner} >
+            <lightning-spinner alternative-text="Loading" size="medium" class="spinnerClass"></lightning-spinner>
+        </template>
+        <div class="slds-text-heading_small"> Files Upload</div> <br/>
+        <lightning-input type="file"
+                         label="Attachment"
+                         onchange={handleFileUploaded}
+                         multiple>
+        </lightning-input>
+        <template if:true={filesData}>
+            <template for:each={filesData} for:item="imgName" for:index="index">
+                {imgName.fileName}
+                <span key={imgName.fileName} data-id={index} onclick={removeReceiptImage} class="removeImage">x</span> &nbsp;
+            </template>
+        </template>
+        <br/>
+        <lightning-button variant="brand" label="Upload Files" onclick={uploadFiles} class="slds-m-top_medium"> </lightning-button>
+    </div>
+    </lightning-card>
+</template>
